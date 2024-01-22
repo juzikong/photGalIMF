@@ -1,16 +1,15 @@
-import stellar_luminosity_PARSEC
+import stellar_luminosity
 from scipy.integrate import quad
 import math
 import multiprocessing as mp
 import time
 import matplotlib.pyplot as plt
-import matplotlib.patches as mpatches
 import numpy as np
-import sys
-from IMFs import Kroupa_IMF
+import Kroupa_IMF
 
-# The photGalIMF code provides at its current stage only the Ks-band, the IRAC [3.6]-band, and the V-band
-band_selection = "Ks"  # can be "V", "Ks", or "IRAC36"
+# The photGalIMF code provides at its current stage only the Ks-band, the IRAC [3.6]-band, and the V-band ("V", "Ks", or "IRAC36")
+band_selection = stellar_luminosity.band_selection
+isochrones_selection = stellar_luminosity.isochrones_selection
 
 # metallicity grid for stellar lifetime and remnant mass tables:
 Z_table_list = [0.0004, 0.0008, 0.0012, 0.0016, 0.002, 0.0024, 0.0028, 0.0032, 0.0036, 0.004, 0.008, 0.012]
@@ -75,36 +74,6 @@ def function_select_metal(Z, Z_table_list):
             (i) = (i + 1)
 
 
-def function_read_lifetime(Z_select_in_table):
-    if Z_select_in_table[0] == 'out':
-        file_lifetime = open('yield_tables/rearranged/setllar_lifetime_from_portinari98/portinari98_Z={}.txt'.format(Z_select_in_table[1]), 'r')
-        data = file_lifetime.readlines()
-        mass_1 = data[3]
-        lifetime_ = data[5]
-        file_lifetime.close()
-        mass = [float(x) for x in mass_1.split()]
-        lifetime_table = [float(x) for x in lifetime_.split()]
-    else:
-        file_lifetime_low = open('yield_tables/rearranged/setllar_lifetime_from_portinari98/portinari98_Z={}.txt'.format(Z_select_in_table[1]), 'r')
-        data_low = file_lifetime_low.readlines()
-        mass_1 = data_low[3]
-        lifetime_low = data_low[5]
-        file_lifetime_low.close()
-
-        file_lifetime_high = open('yield_tables/rearranged/setllar_lifetime_from_portinari98/portinari98_Z={}.txt'.format(Z_select_in_table[3]), 'r')
-        data_high = file_lifetime_high.readlines()
-        lifetime_high = data_high[5]
-        file_lifetime_high.close()
-        mass = [float(x) for x in mass_1.split()]
-        lifetime_table_low = [float(x) for x in lifetime_low.split()]
-        lifetime_table_high = [float(x) for x in lifetime_high.split()]
-        x1 = Z_select_in_table[1]
-        x2 = Z_select_in_table[2]
-        x3 = Z_select_in_table[3]
-        lifetime_table = [y1 + (y3 - y1) * (x2 - x1) / (x3 - x1) for y1, y3 in zip(lifetime_table_low, lifetime_table_high)]
-    return (mass, lifetime_table)
-
-
 def function_mass_boundary(this_time, data_AGB):
     logAge_mass_boundary = np.round(data_AGB[:, 0], 5)
     logAge_value = np.log10(this_time)
@@ -124,7 +93,7 @@ def igimf_mass_function(mass, igimf_of_this_epoch):
 
 # def igimf_luminous_function(mass, igimf_of_this_epoch, Z_of_this_epoch__, age_of_this_epoch):
 #     xi__ = igimf_of_this_epoch.custom_imf(mass, age_of_this_epoch)
-#     lum__ = stellar_luminosity_PARSEC.stellar_luminosity_function(mass, Z_of_this_epoch__, max(age_of_this_epoch, 1))  #######################
+#     lum__ = stellar_luminosity.stellar_luminosity_function(mass, Z_of_this_epoch__, max(age_of_this_epoch, 1))  #######################
 #     # lum__ = stellar_luminosity_interpolation.stellar_luminosity_function(mass, MH__, max(age_of_this_epoch, 1))  #######################
 #     # lum__ = mass_luminosity_fit_Yan.stellar_luminosity_function(mass, MH__, max(age_of_this_epoch, 1))  #######################
 #     # lum__ = stellar_luminosity.stellar_luminosity_function(mass)  #######################
@@ -190,18 +159,22 @@ def function_get_target_mass(initial_mass, mass_grid_table, Mfinal_table):
 
 def function_read_Mfinal(Z_select_in_table):
     if Z_select_in_table[0] == 'out':
-        file_final_mass = open("yield_tables/rearranged___/setllar_final_mass_from_portinari98/portinari98_Z={}.txt".format(Z_select_in_table[1]), 'r')
+        file_final_mass = open("stellar_remnant_mass/Portinari98/portinari98_Z={}.txt".format(Z_select_in_table[1]), 'r')
         data = file_final_mass.readlines()
+        mass_ = data[3]
         Mfinal_ = data[5]
         file_final_mass.close()
+        mass = [float(x) for x in mass_.split()]
         Mfinal_table = [float(x) for x in Mfinal_.split()]
     else:
-        file_final_mass = open("yield_tables/rearranged___/setllar_final_mass_from_portinari98/portinari98_Z={}.txt".format(Z_select_in_table[1]), 'r')
+        file_final_mass = open("stellar_remnant_mass/Portinari98/portinari98_Z={}.txt".format(Z_select_in_table[1]), 'r')
         data = file_final_mass.readlines()
+        mass_ = data[3]
         Mfinal_low = data[5]
         file_final_mass.close()
+        mass = [float(x) for x in mass_.split()]
         Mfinal_table_low = [float(x) for x in Mfinal_low.split()]
-        file_final_mass = open("yield_tables/rearranged___/setllar_final_mass_from_portinari98/portinari98_Z={}.txt".format(Z_select_in_table[3]), 'r')
+        file_final_mass = open("stellar_remnant_mass/Portinari98/portinari98_Z={}.txt".format(Z_select_in_table[3]), 'r')
         data = file_final_mass.readlines()
         Mfinal_high = data[5]
         file_final_mass.close()
@@ -210,12 +183,12 @@ def function_read_Mfinal(Z_select_in_table):
         x2 = Z_select_in_table[2]
         x3 = Z_select_in_table[3]
         Mfinal_table = [y1 + (y3 - y1) * (x2 - x1) / (x3 - x1) for y1, y3 in zip(Mfinal_table_low, Mfinal_table_high)]
-    return Mfinal_table
+    return mass, Mfinal_table
 
 
 data_AGB_list = []
-for Z__ in stellar_luminosity_PARSEC.Z_list_value:
-    data_AGB_list.append(np.loadtxt('{}_band/PARSEC_{}_band_Mass_lifetime_relation_Z_{}.txt'.format(band_selection, band_selection, Z__)))
+for Z__ in stellar_luminosity.Z_list_value:
+    data_AGB_list.append(np.loadtxt('stellar_isochrones/{}/{}_band/{}_{}_band_Mass_lifetime_relation_Z_{}.txt'.format(isochrones_selection, band_selection, isochrones_selection, band_selection, Z__)))
 
 
 def createList(r1, r2):
@@ -237,7 +210,6 @@ obs_time_list = [i * 1e7 for i in createList(1, 15)] + [2e8, 4e8, 7e8] + [i * 1e
 def mass_to_light(epoch_number):
     IMF = "Kroupa"
     obs_time_list = [i * 1e7 for i in createList(1, 15)] + [2e8, 4e8, 7e8] + [i * 1e8 for i in createList(10, 25)] + [i * 1e9 for i in createList(3, 14)]
-    # obs_time_list = [i * 1e7 for i in createList(1, 15)] + [i * 1e8 for i in createList(2, 10)]
     lumi_list = [1e-9] * len(obs_time_list)
     dynamic_mass_list = [1e-9] * len(obs_time_list)
     stellar_mass_list = [1e-9] * len(obs_time_list)
@@ -254,11 +226,10 @@ def mass_to_light(epoch_number):
     Z_of_this_epoch = Z__list[epoch_index]
     # Z_of_this_epoch = 0.04
     Z_select_in_table = function_select_metal(Z_of_this_epoch, Z_table_list)
-    (mass_grid_table, lifetime_table) = function_read_lifetime(Z_select_in_table)
-    Mfinal_table = function_read_Mfinal(Z_select_in_table)
+    (mass_grid_table, Mfinal_table) = function_read_Mfinal(Z_select_in_table)
 
-    Z_list_index = np.argmin(np.abs(np.array(stellar_luminosity_PARSEC.Z_list_value) - Z_of_this_epoch))
-    stellar_Z_select = stellar_luminosity_PARSEC.Z_list_value[Z_list_index]
+    Z_list_index = np.argmin(np.abs(np.array(stellar_luminosity.Z_list_value) - Z_of_this_epoch))
+    stellar_Z_select = stellar_luminosity.Z_list_value[Z_list_index]
 
     data_AGB = data_AGB_list[Z_list_index]
 
@@ -270,8 +241,8 @@ def mass_to_light(epoch_number):
             # integrate luminosity
             (AGB_mass_boundary_low, AGB_mass_boundary_up) = function_mass_boundary(age_of_this_epoch, data_AGB)
             # # calculate the stellar luminosity of a SSP with an interpolated metallicity.
-            luminosity_SSP_MS = stellar_luminosity_PARSEC.SSP_luminosity(igimf_of_this_epoch, Z_of_this_epoch, max(age_of_this_epoch, 1), 0.1, AGB_mass_boundary_low*0.9, 200)
-            luminosity_SSP_AGB = stellar_luminosity_PARSEC.SSP_luminosity(igimf_of_this_epoch, Z_of_this_epoch, max(age_of_this_epoch, 1), AGB_mass_boundary_low*0.9, AGB_mass_boundary_up, 50)
+            luminosity_SSP_MS = stellar_luminosity.SSP_luminosity(igimf_of_this_epoch, Z_of_this_epoch, max(age_of_this_epoch, 1), 0.1, AGB_mass_boundary_low*0.9, 200)
+            luminosity_SSP_AGB = stellar_luminosity.SSP_luminosity(igimf_of_this_epoch, Z_of_this_epoch, max(age_of_this_epoch, 1), AGB_mass_boundary_low*0.9, AGB_mass_boundary_up, 50)
             stellar_luminosity_of_a_epoch_at_a_time_step = luminosity_SSP_MS + luminosity_SSP_AGB
             integrate_star_mass_of_a_epoch_at_a_time_step = quad(igimf_mass_function, 0.1, AGB_mass_boundary_up, args=(igimf_of_this_epoch), limit=40)[0]
             mass_calibration_factor = 1
@@ -295,8 +266,7 @@ if __name__ == '__main__':
     # cProfile.run('galaxy_evol()', sort='tottime')
 
     file_evo = open(
-        'simulation_results_from_galaxy_evol/imfKroupalogOGM8.1log_SFR-1.9SFENNoneZ_0-9.0_Model7/chemical_and_SN_evolution.txt',
-        'r')  # 6 Gyr  1Msun/yr
+        'simulation_results_from_galaxy_evol/example/chemical_and_SN_evolution.txt', 'r')
     data = file_evo.readlines()
     file_evo.close()
     Z__list = [float(x) for x in data[195].split()]
@@ -426,27 +396,3 @@ if __name__ == '__main__':
     # plt.legend(prop={'size': 8})
     plt.tight_layout()
     plt.show()
-
-
-
-# file_evo = open('simulation_results_from_galaxy_evol/imfigimflogOGM8.1log_SFR-1.6SFENNoneZ_0-9.0_Model1/chemical_and_SN_evolution.txt', 'r')
-# file_evo = open('simulation_results_from_galaxy_evol/imfigimflogOGM7.9log_SFR-2.0SFENNoneZ_0-9.0_Model3/chemical_and_SN_evolution.txt', 'r')
-# file_evo = open('simulation_results_from_galaxy_evol/imfigimflogOGM7.7log_SFR-1.5SFENNoneZ_0-9.0_Model6/chemical_and_SN_evolution.txt', 'r')
-# file_evo = open('simulation_results_from_galaxy_evol/imfigimflogOGM7.7log_SFR-1.5SFENNoneZ_0-9.0_Model7/chemical_and_SN_evolution.txt', 'r')
-# file_evo = open('simulation_results_from_galaxy_evol/imfigimflogOGM7.87log_SFR-1.5SFENNoneZ_0-9.0_Model8/chemical_and_SN_evolution.txt', 'r')
-# file_evo = open('simulation_results_from_galaxy_evol/imfigimflogOGM7.7log_SFR-2.1SFENNoneZ_0-9.0_Model9/chemical_and_SN_evolution.txt', 'r')
-# file_evo = open('simulation_results_from_galaxy_evol/imfigimflogOGM7.7log_SFR-2.1SFENNoneZ_0-9.0_Model10/chemical_and_SN_evolution.txt', 'r')
-# file_evo = open('simulation_results_from_galaxy_evol/imfigimflogOGM7.7log_SFR-2.1SFENNoneZ_0-9.0_Model11/chemical_and_SN_evolution.txt', 'r')
-# file_evo = open('simulation_results_from_galaxy_evol/imfigimflogOGM7.7log_SFR-1.9SFENNoneZ_0-9.0_Model16/chemical_and_SN_evolution.txt', 'r')
-# file_evo = open('simulation_results_from_galaxy_evol/imfigimflogOGM7.9log_SFR-1.9SFENNoneZ_0-9.0_Model20/chemical_and_SN_evolution.txt', 'r')
-# file_evo = open('simulation_results_from_galaxy_evol/imfigimflogOGM7.8log_SFR-1.9SFENNoneZ_0-9.0_Model26/chemical_and_SN_evolution.txt', 'r')
-# file_evo = open('simulation_results_from_galaxy_evol/imfigimflogOGM7.8log_SFR-1.9SFENNoneZ_0-9.0_IGIMF_Canonical/chemical_and_SN_evolution.txt', 'r')
-# file_evo = open('simulation_results_from_galaxy_evol/imfigimflogOGM7log_SFR-1.9SFENNoneZ_0-9.0_Vincenzo2014scaled/chemical_and_SN_evolution.txt', 'r')
-# file_evo = open('simulation_results_from_galaxy_evol/imfKroupalogOGM7.5log_SFR-1.9SFENNoneZ_0-9.0_canonical/chemical_and_SN_evolution.txt', 'r')
-# file_evo = open('simulation_results_from_galaxy_evol/imfKroupalogOGM8.1log_SFR-1.9SFENNoneZ_0-9.0_Model8/chemical_and_SN_evolution.txt', 'r')
-# file_evo = open('simulation_results_from_galaxy_evol/imfKroupalogOGM11.2log_SFR2.0SFEN1Z_0-8.999999999999998/chemical_and_SN_evolution.txt', 'r')   # Ballero IMF
-# file_evo = open('simulation_results_from_galaxy_evol/imfKroupalogOGM11.15log_SFR2.0SFEN1Z_0-8.999999999999998/chemical_and_SN_evolution.txt', 'r')   # Kroupa01 IMF
-# file_evo = open('simulation_results_from_galaxy_evol/imfKroupalogOGM11.1log_SFR2.0SFEN1Z_0-8.999999999999998/chemical_and_SN_evolution.txt', 'r')   # top-heavy IMF
-# file_evo = open('simulation_results_from_galaxy_evol/imfKroupalogOGM11.09log_SFR2.0SFEN1Z_0-8.999999999999998/chemical_and_SN_evolution.txt', 'r')   # Kroupa93 IMF
-# file_evo = open('simulation_results_from_galaxy_evol/imfKroupalogOGM11.08log_SFR2.0SFEN1Z_0-8.999999999999998/chemical_and_SN_evolution.txt', 'r')   # Bottom-heavy IMF
-# file_evo = open('simulation_results_from_galaxy_evol/imfKroupalogOGM10.3log_SFR0.0SFEN1Z_0-8.999999999999998/chemical_and_SN_evolution.txt', 'r')   # 6 Gyr  1Msun/yr
