@@ -261,10 +261,6 @@ def mass_to_light(epoch_number):
 
 
 if __name__ == '__main__':
-
-    # import cProfile
-    # cProfile.run('galaxy_evol()', sort='tottime')
-
     file_evo = open(
         'simulation_results_from_galaxy_evol/example/chemical_and_SN_evolution.txt', 'r')
     data = file_evo.readlines()
