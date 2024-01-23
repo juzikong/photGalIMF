@@ -252,7 +252,7 @@ def stellar_luminosity_function(mass, stellar_Z, stellar_age):
 
 if __name__ == '__main__':
     stellar_metallicity = 0.02
-    print("This example plot the adopted stellar mass--luminosity relation given by PARSEC for stars with Z = {} and at ages of 10^7, 10^8...10^10 yr.".format(stellar_metallicity))
+    print("This example plot the adopted stellar mass--luminosity relation given by PARSEC for stars with Z = {} and at ages of 10^7, 10^8, 10^9, and 10^10 yr.".format(stellar_metallicity))
 
     import matplotlib.pyplot as plt
 
