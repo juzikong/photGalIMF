@@ -33,6 +33,7 @@ stellar_mass_formed_at_each_epoch = [float(x) for x in data[203].split()]
 
 print("This code take the galaxy simualtion result saved in simulation_results_from_galaxy_evol/example and calculates the galaxy luminosity and mass evolution.")
 print("This example galaxy form stars continuously for 1 Gyr at each 10 Myr timestep with a SFR = 100 Msun/yr.")
+print("That is, in total 100 star formation epoch.")
 epoch_number_list = createList(1, 99)
 print("The simulation record the galaxy metallicity Z__list at simulation_time_list with a length of {}.".format(len(Z__list)))
 print("simulation_time_list:", simulation_time_list)
