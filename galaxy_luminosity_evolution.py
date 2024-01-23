@@ -120,7 +120,7 @@ def function_mass_boundary(this_time, data_AGB):
 
 
 def igimf_mass_function(mass, igimf_of_this_epoch):
-    return igimf_of_this_epoch.custom_imf(mass, 0) * mass
+    return igimf_of_this_epoch.custom_imf(mass) * mass
 
 
 # def igimf_luminous_function(mass, igimf_of_this_epoch, Z_of_this_epoch__, age_of_this_epoch):
