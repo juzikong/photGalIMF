@@ -288,7 +288,7 @@ if __name__ == '__main__':
 
     plt.xscale("log")
     plt.yscale("log")
-    plt.xlabel(r'mass')
-    plt.ylabel(r'lum')
+    plt.xlabel(r'Stellar mass [$M_\odot$]')
+    plt.ylabel(r'Stellar luminosity [$L_\odot$]')
     plt.tight_layout()
     plt.show()
