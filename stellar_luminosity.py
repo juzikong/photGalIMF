@@ -44,7 +44,7 @@ logAge_list_value = np.round(sorted(set(logAge_fit)), 5)
 
 
 def igimf_luminous_function(mass, igimf_of_this_epoch, logAge_value, stellar_Z_select, index_MS_fit, index_AGB, index_MS):
-    xi__ = igimf_of_this_epoch.custom_imf(mass, 0)
+    xi__ = igimf_of_this_epoch.custom_imf(mass)
     log_mass = np.log10(mass)
     log_lum = -999
 
