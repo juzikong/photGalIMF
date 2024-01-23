@@ -250,8 +250,10 @@ def stellar_luminosity_function(mass, stellar_Z, stellar_age):
     return lum__
 
 
-
 if __name__ == '__main__':
+    stellar_metallicity = 0.02
+    print("This example plot the adopted stellar mass--luminosity relation given by PARSEC for stars with Z = {} and at ages of 10^7, 10^8...10^10 yr.".format(stellar_metallicity))
+
     import matplotlib.pyplot as plt
 
     plt.rc('font', family='serif')
@@ -264,13 +266,12 @@ if __name__ == '__main__':
 
     age = 1e7
     while age < 13e9:
-        # print("age", age / 1e7)
         mass_list = []
         lumn_list = []
         mass = 0.1
         while mass < 30:
             mass_list += [mass]
-            lumn_list += [stellar_luminosity_function(mass, 0.03, age)]
+            lumn_list += [stellar_luminosity_function(mass, stellar_metallicity, age)]
             (mass) = (mass * 1.001)
         plt.plot(mass_list, lumn_list, color="k")
         (age) = (age * 10)
@@ -289,6 +290,5 @@ if __name__ == '__main__':
     plt.yscale("log")
     plt.xlabel(r'mass')
     plt.ylabel(r'lum')
-    # plt.legend(prop={'size': 10})
     plt.tight_layout()
     plt.show()
