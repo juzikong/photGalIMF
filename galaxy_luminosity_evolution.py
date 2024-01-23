@@ -6,6 +6,38 @@ import time
 import matplotlib.pyplot as plt
 import numpy as np
 import Kroupa_IMF
+import sys
+
+def createList(r1, r2):
+    # Testing if range r1 and r2 are equal
+    if (r1 == r2):
+        return [r1]
+    else:
+        a_list = []
+        while (r1 < r2 + 1):
+            a_list.append(r1)
+            r1 += 1
+        return a_list
+
+
+obs_time_list = [i * 1e7 for i in createList(1, 15)] + [2e8, 4e8, 7e8] + [i * 1e8 for i in createList(10, 25)] + [
+    i * 1e9 for i in createList(3, 14)]
+
+sys.path.append('simulation_results_from_galaxy_evol/example')
+file_evo = open('simulation_results_from_galaxy_evol/example/chemical_and_SN_evolution.txt', 'r')
+data = file_evo.readlines()
+file_evo.close()
+Z__list = [float(x) for x in data[195].split()]
+simulation_time_list = [float(x) for x in data[15].split()]
+stellar_mass_formed_at_each_epoch = [float(x) for x in data[203].split()]
+
+print("This code take the galaxy simualtion result saved in simulation_results_from_galaxy_evol/example and calculates the galaxy luminosity and mass evolution.")
+print("This example galaxy form stars continuously for 1 Gyr at each 10 Myr timestep with a SFR = 100 Msun/yr.")
+epoch_number_list = createList(1, 99)
+print("The simulation record the galaxy metallicity Z__list at simulation_time_list with a length of {}.".format(len(Z__list)))
+print("simulation_time_list:", simulation_time_list)
+print("Z__list:", Z__list)
+print("The result are given at T years after the formation of the first star in that galaxy and T is a list with length {}. T =".format(len(obs_time_list), obs_time_list)
 
 # The photGalIMF code provides at its current stage only the Ks-band, the IRAC [3.6]-band, and the V-band ("V", "Ks", or "IRAC36")
 band_selection = stellar_luminosity.band_selection
@@ -15,8 +47,8 @@ isochrones_selection = stellar_luminosity.isochrones_selection
 Z_table_list = [0.0004, 0.0008, 0.0012, 0.0016, 0.002, 0.0024, 0.0028, 0.0032, 0.0036, 0.004, 0.008, 0.012]
 ### If Z_table_list is not correct, use function_get_avaliable_Z() to generate Z_table_list
 # def function_get_avaliable_Z():
-#     # extract avalible metallicity in the given grid table
-#     # stellar life-time table and metal production tables have different avalible metal grid.
+#     # Extract available metallicity in the given grid table
+#     # Stellar lifetime tables and metal production tables have different available metal grids.
 #     import os
 #
 #     yield_path = 'yield_tables'
@@ -53,14 +85,14 @@ Z_table_list = [0.0004, 0.0008, 0.0012, 0.0016, 0.002, 0.0024, 0.0028, 0.0032, 0
 
 
 def function_select_metal(Z, Z_table_list):
-    # the list for stellar lifetime is
+    # The list for the stellar lifetime is
     # [0.0004, 0.0008, 0.0012, 0.0016, 0.002, 0.0024, 0.0028, 0.0032, 0.0036, 0.004, 0.008, 0.012]
     # the list for stellar metallicity is
     # [0.0004, 0.004, 0.008, 0.0127] or [0, 0.004, 0.02] for Kobayashi2006 massive star table
     if Z <= Z_table_list[0]:
         Z_select__ = Z_table_list[0]
         return ('out', Z_select__, Z_select__, Z_select__)
-        # The 'out' flag means the current gas metallicity is outside the range of provided stellar yield table.
+        # The 'out' flag means the current gas metallicity is outside the range of the provided stellar yield table.
     elif Z >= Z_table_list[-1]:
         Z_select__ = Z_table_list[-1]
         return ('out', Z_select__, Z_select__, Z_select__)
@@ -191,22 +223,6 @@ for Z__ in stellar_luminosity.Z_list_value:
     data_AGB_list.append(np.loadtxt('stellar_isochrones/{}/{}_band/{}_{}_band_Mass_lifetime_relation_Z_{}.txt'.format(isochrones_selection, band_selection, isochrones_selection, band_selection, Z__)))
 
 
-def createList(r1, r2):
-    # Testing if range r1 and r2 are equal
-    if (r1 == r2):
-        return [r1]
-    else:
-        a_list = []
-        while (r1 < r2 + 1):
-            a_list.append(r1)
-            r1 += 1
-        return a_list
-
-obs_time_list = [i * 1e7 for i in createList(1, 15)] + [2e8, 4e8, 7e8] + [i * 1e8 for i in createList(10, 25)] + [
-    i * 1e9 for i in createList(3, 14)]
-# obs_time_list = [i * 1e7 for i in createList(1, 15)] + [i * 1e8 for i in createList(2, 10)]
-
-
 def mass_to_light(epoch_number):
     IMF = "Kroupa"
     obs_time_list = [i * 1e7 for i in createList(1, 15)] + [2e8, 4e8, 7e8] + [i * 1e8 for i in createList(10, 25)] + [i * 1e9 for i in createList(3, 14)]
@@ -240,7 +256,7 @@ def mass_to_light(epoch_number):
             age_of_this_epoch = max(obs_time - (epoch_number * 1e7), 3e6)
             # integrate luminosity
             (AGB_mass_boundary_low, AGB_mass_boundary_up) = function_mass_boundary(age_of_this_epoch, data_AGB)
-            # # calculate the stellar luminosity of a SSP with an interpolated metallicity.
+            # # Calculate the stellar luminosity of a SSP with an interpolated metallicity.
             luminosity_SSP_MS = stellar_luminosity.SSP_luminosity(igimf_of_this_epoch, Z_of_this_epoch, max(age_of_this_epoch, 1), 0.1, AGB_mass_boundary_low*0.9, 200)
             luminosity_SSP_AGB = stellar_luminosity.SSP_luminosity(igimf_of_this_epoch, Z_of_this_epoch, max(age_of_this_epoch, 1), AGB_mass_boundary_low*0.9, AGB_mass_boundary_up, 50)
             stellar_luminosity_of_a_epoch_at_a_time_step = luminosity_SSP_MS + luminosity_SSP_AGB
@@ -261,20 +277,6 @@ def mass_to_light(epoch_number):
 
 
 if __name__ == '__main__':
-    file_evo = open(
-        'simulation_results_from_galaxy_evol/example/chemical_and_SN_evolution.txt', 'r')
-    data = file_evo.readlines()
-    file_evo.close()
-    Z__list = [float(x) for x in data[195].split()]
-    simulation_time_list = [float(x) for x in data[15].split()]
-    stellar_mass_formed_at_each_epoch = [float(x) for x in data[203].split()]
-
-    print("len(obs_time_list)", len(obs_time_list), "obs_time_list:", obs_time_list)
-    print("len(Z__list)", len(Z__list), "Z__list:", Z__list)
-    print("simulation_time_list:", simulation_time_list)
-    epoch_number_list = createList(1, len(simulation_time_list)-1)   ###################################
-    print("epoch_number_list:", epoch_number_list)
-
     start_time = time.time()
     processors_number = mp.cpu_count()
     # processors_number = 10
@@ -338,8 +340,7 @@ if __name__ == '__main__':
     plt.xscale("log")
     plt.yscale("log")
     plt.xlabel(r'age [yr]')
-    # plt.ylabel(r'$M/L_V~[M_\odot/L_{V,\odot}]$')
-    plt.ylabel(r'$M/L_K~[M_\odot/L_{K,\odot}]$')
+    plt.ylabel(r'$M/L_{}~[M_\odot/L_{{},\odot}]$'.format(band_selection, band_selection))
     plt.legend(prop={'size': 8})
     plt.tight_layout()
 
@@ -364,31 +365,12 @@ if __name__ == '__main__':
     plt.rc('ytick', labelsize='x-small')
     fig = plt.figure(3, figsize=(6, 5))
     fig.add_subplot(1, 1, 1)
-    # t50 = 14e8
-    # plt.plot([120e8+t50, 132e8+t50], [2376840, 2376840], c='k', lw=1, label="observation")
-    # # de los Reyes 2022 most of the SFH estimation agrees that 50% of the star formed between 12 Gyr and 13.2 Gyr ago.
-    # plt.plot([126e8+t50, 126e8+t50], [1499685, 3767038], c='k', lw=1)
-    # V-band luminosity measurements:
-    # McConnachie 2012 -11.1 +- 0.5
-    # use Irwin & Hatzidimitriou 1995 -10.7 +- 0.5 https://ui.adsabs.harvard.edu/abs/1995MNRAS.277.1354I/abstract
-    # use Caldwell et al. 1992 -10.7 https://ui.adsabs.harvard.edu/abs/1992AJ....103..840C/abstract
-    # mention Burstein et al. 1987 https://ui.adsabs.harvard.edu/abs/1987ApJS...64..601B/abstract
-    # Tolstoy 2009 -11.2 https://ui.adsabs.harvard.edu/abs/2009ARA%26A..47..371T/abstract
-    # use Mateo 1998 downloaded https://ui.adsabs.harvard.edu/abs/1998ARA%26A..36..435M/abstract
-    # which uses Caldwell et al 1992, Irwin & Hatzidimitriou 1995
 
-
-    # rect = mpatches.Rectangle((12e9+t50, 1499685), 12e8, 2267353, alpha=0.3, facecolor="red")
-    # plt.gca().add_patch(rect)
     plt.plot(obs_time_list, lumi_list_sum)
     print("lumi_list_sum =", lumi_list_sum)
     plt.xscale("log")
     plt.yscale("log")
-    # plt.xlim(1e9, 2e9)
-    # plt.ylim(1, 100)
     plt.xlabel(r'age [yr]')
-    # plt.ylabel(r'$L_V~[L_{V,\odot}]$')
-    plt.ylabel(r'$L_K~[L_{V,\odot}]$')
-    # plt.legend(prop={'size': 8})
+    plt.ylabel(r'$L_{}~[L_{V,\odot}]$'.format(band_selection))
     plt.tight_layout()
     plt.show()
