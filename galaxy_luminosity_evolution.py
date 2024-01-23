@@ -340,7 +340,7 @@ if __name__ == '__main__':
     plt.xscale("log")
     plt.yscale("log")
     plt.xlabel(r'age [yr]')
-    plt.ylabel(r'$M/L_{}~[M_\odot/L_{{},\odot}]$'.format(band_selection, band_selection))
+    plt.ylabel(r'$M/L~[M_\odot/L_\odot]$')
     plt.legend(prop={'size': 8})
     plt.tight_layout()
 
@@ -371,6 +371,6 @@ if __name__ == '__main__':
     plt.xscale("log")
     plt.yscale("log")
     plt.xlabel(r'age [yr]')
-    plt.ylabel(r'$L_{}~[L_{V,\odot}]$'.format(band_selection))
+    plt.ylabel(r'$L~[L_\odot]$')
     plt.tight_layout()
     plt.show()
