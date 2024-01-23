@@ -37,7 +37,7 @@ epoch_number_list = createList(1, 99)
 print("The simulation record the galaxy metallicity Z__list at simulation_time_list with a length of {}.".format(len(Z__list)))
 print("simulation_time_list:", simulation_time_list)
 print("Z__list:", Z__list)
-print("The result are given at T years after the formation of the first star in that galaxy and T is a list with length {}. T =".format(len(obs_time_list), obs_time_list)
+print("The result are given at T years after the formation of the first star in that galaxy and T is a list with length {}. T =".format(len(obs_time_list), obs_time_list))
 
 # The photGalIMF code provides at its current stage only the Ks-band, the IRAC [3.6]-band, and the V-band ("V", "Ks", or "IRAC36")
 band_selection = stellar_luminosity.band_selection
