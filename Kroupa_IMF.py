@@ -1,4 +1,4 @@
-def custom_imf(mass):
+def custom_imf(mass, time):
     if mass < 0.08:
         return 0
     elif mass < 0.5:
