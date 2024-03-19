@@ -27,6 +27,7 @@ sys.path.append('simulation_results_from_galaxy_evol/example')
 file_evo = open('simulation_results_from_galaxy_evol/example/chemical_and_SN_evolution.txt', 'r')
 data = file_evo.readlines()
 file_evo.close()
+# The following line numbers may differ for simulation results given by different galIMF versions. Please double check the correct line number.
 Z__list = [float(x) for x in data[195].split()]
 simulation_time_list = [float(x) for x in data[15].split()]
 stellar_mass_formed_at_each_epoch = [float(x) for x in data[203].split()]
@@ -121,7 +122,7 @@ def function_mass_boundary(this_time, data_AGB):
 
 
 def igimf_mass_function(mass, igimf_of_this_epoch):
-    return igimf_of_this_epoch.custom_imf(mass) * mass
+    return igimf_of_this_epoch.custom_imf(mass, 0) * mass
 
 
 # def igimf_luminous_function(mass, igimf_of_this_epoch, Z_of_this_epoch__, age_of_this_epoch):
