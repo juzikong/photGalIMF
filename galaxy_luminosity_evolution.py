@@ -226,7 +226,8 @@ for Z__ in stellar_luminosity.Z_list_value:
 
 
 def mass_to_light(epoch_number):
-    IMF = "Kroupa"
+    IMF = "igimf"
+    # or IMF = "Kroupa"
     obs_time_list = [i * 1e7 for i in createList(1, 15)] + [2e8, 4e8, 7e8] + [i * 1e8 for i in createList(10, 25)] + [i * 1e9 for i in createList(3, 14)]
     lumi_list = [1e-9] * len(obs_time_list)
     dynamic_mass_list = [1e-9] * len(obs_time_list)
