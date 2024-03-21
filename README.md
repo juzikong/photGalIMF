@@ -12,7 +12,7 @@ This is kept as an independent repository that may be updated with newer stellar
 
 ## Citation
 
-Yan et al. (2024 submitted)
+Haslbauer et al. (2024 submitted)
 
 ## Input
 
