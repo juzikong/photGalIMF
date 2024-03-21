@@ -29,6 +29,8 @@ stellar_luminosity.py
 and/or
 galaxy_luminosity_evolution.py
 
+If a new galaxy simulation rather than the example is considered. Follow these steps to modify "galaxy_luminosity_evolution.py".
+
 ### Step 1: 
 
 Specify the galaxy-wide IMF model (parameter "gwIMF") for the function "mass_to_light". 
@@ -43,6 +45,10 @@ For variable gwIMF (see Step 1) the gwIMF for each timestep is required in simul
 
 ### Step 3:
 
-Modify the file path if a new galaxy simulation rather than the example is given. That is, the following lines:
-sys.path.append('simulation_results_from_galaxy_evol/example')
-file_evo = open('simulation_results_from_galaxy_evol/example/chemical_and_SN_evolution.txt', 'r')
+Modify the file path. That is, the following lines:
+> sys.path.append('simulation_results_from_galaxy_evol/example')
+> file_evo = open('simulation_results_from_galaxy_evol/example/chemical_and_SN_evolution.txt', 'r')
+
+### Step 4:
+
+Run galaxy_luminosity_evolution.py
