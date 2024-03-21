@@ -8,11 +8,11 @@ Supplementary repository of the GalIMF galaxy chemical evolution code (https://g
 
 This is kept as an independent repository that may be updated with newer stellar evolution models.
 
-## Inputs
+## Input
 
 The photGalIMF code takes the galaxy chemical evolution simulation results saved in (https://github.com/Azeret/galIMF/tree/master/simulation_results_from_galaxy_evol) and the galaxy-wide IMFs saved in (https://github.com/Azeret/galIMF/tree/master/Generated_IGIMFs) as inputs.
 
-## Outputs
+## Output
 
 The photGalIMF code outputs the stellar mass evolution, dynamical mass (stellar + remnant mass) evolution, total stellar luminosity evolution (for V, Ks or IRAC36 bands), and stellar mass-to-light ratio evolution (for V, Ks or IRAC36 bands).
 
