@@ -2,13 +2,16 @@
 
 Authors: Moritz Haslbauer (Bonn University), Yan Zhiqiang (Nanjing University)
 
+This is kept as an independent repository that may be updated with newer stellar evolution models.
+
+
 ## Aim
 
 Supplementary repository of the GalIMF galaxy chemical evolution code (https://github.com/Azeret/galIMF) to calculate (post-processing) the photometric luminosity of simulated galaxies.
 
-## Documentation
+## Stellar isochrone
 
-This is kept as an independent repository that may be updated with newer stellar evolution models.
+Currently, the only stellar isochrone prepared is from the PARSEC stellar evolution model downloaded from http://stev.oapd.inaf.it/cgi-bin/cmd with settings detailed in the publication below.
 
 ## Citation
 
