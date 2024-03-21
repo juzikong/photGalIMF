@@ -1,5 +1,7 @@
 # photGalIMF
 
+Authors: Moritz Haslbauer (Bonn University), Yan Zhiqiang (Nanjing University)
+
 ## Aim
 
 Supplementary repository of the GalIMF galaxy chemical evolution code (https://github.com/Azeret/galIMF) to calculate (post-processing) the photometric luminosity of simulated galaxies.
@@ -7,6 +9,10 @@ Supplementary repository of the GalIMF galaxy chemical evolution code (https://g
 ## Documentation
 
 This is kept as an independent repository that may be updated with newer stellar evolution models.
+
+## Citation
+
+Yan et al. (2024 submitted)
 
 ## Input
 
