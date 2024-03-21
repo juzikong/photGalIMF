@@ -226,15 +226,15 @@ for Z__ in stellar_luminosity.Z_list_value:
 
 
 def mass_to_light(epoch_number):
-    IMF = "igimf"
-    # or IMF = "Kroupa"
+    gwIMF = "igimf"
+    # or gwIMF = "Kroupa"
     obs_time_list = [i * 1e7 for i in createList(1, 15)] + [2e8, 4e8, 7e8] + [i * 1e8 for i in createList(10, 25)] + [i * 1e9 for i in createList(3, 14)]
     lumi_list = [1e-9] * len(obs_time_list)
     dynamic_mass_list = [1e-9] * len(obs_time_list)
     stellar_mass_list = [1e-9] * len(obs_time_list)
 
     print("=== epoch_number", epoch_number)
-    if IMF == "Kroupa":
+    if gwIMF == "Kroupa":
         igimf_of_this_epoch = Kroupa_IMF
     else:
         file_name = 'igimf_epoch_{}'.format(epoch_number)
@@ -266,7 +266,7 @@ def mass_to_light(epoch_number):
             integrate_star_mass_of_a_epoch_at_a_time_step = quad(igimf_mass_function, 0.1, AGB_mass_boundary_up, args=(igimf_of_this_epoch), limit=40)[0]
             mass_calibration_factor = 1
             remnant_mass_of_this_epoch_at_a_time_step = get_remnant_mass(AGB_mass_boundary_up, mass_calibration_factor, igimf_of_this_epoch, mass_grid_table, Mfinal_table)
-            if IMF == "Kroupa":
+            if gwIMF == "Kroupa":
                 lumi_list[obs_time_number] += stellar_luminosity_of_a_epoch_at_a_time_step * stellar_mass_formed_at_each_epoch[epoch_number]
                 stellar_mass_list[obs_time_number] += integrate_star_mass_of_a_epoch_at_a_time_step * stellar_mass_formed_at_each_epoch[epoch_number]
                 dynamic_mass_list[obs_time_number] += (integrate_star_mass_of_a_epoch_at_a_time_step + remnant_mass_of_this_epoch_at_a_time_step) * stellar_mass_formed_at_each_epoch[epoch_number]
