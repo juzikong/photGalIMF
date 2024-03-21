@@ -47,6 +47,7 @@ For variable gwIMF (see Step 1) the gwIMF for each timestep is required in simul
 
 Modify the file path. That is, the following lines:
 > sys.path.append('simulation_results_from_galaxy_evol/example')
+> 
 > file_evo = open('simulation_results_from_galaxy_evol/example/chemical_and_SN_evolution.txt', 'r')
 
 ### Step 4:
