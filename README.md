@@ -18,7 +18,7 @@ The photGalIMF code outputs the stellar mass evolution, dynamical mass (stellar 
 
 ## Caveat
 
-The minimum time resolution is 10 Myr. Therefore, the results are inaccurate when there are recent star formation activities.
+For the current luminosity table (to be updated), the minimum time resolution is 10 Myr and the minimum stellar population age is also 10 Myr. Therefore, the results are inaccurate when there are recent star formation activities.
 
 ## Example
 
