@@ -14,7 +14,7 @@ The photGalIMF code takes the galaxy chemical evolution simulation results saved
 
 ## Outputs:
 
-The photGalIMF code outputs the luminosity and mass-to-light ratio evolutions.
+The photGalIMF code outputs the stellar mass evolution, dynamical mass (stellar + remnant mass) evolution, total stellar luminosity evolution (for V, Ks or IRAC36 bands), and stellar mass-to-light ratio evolution (for V, Ks or IRAC36 bands).
 
 ## Caveat:
 
