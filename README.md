@@ -53,4 +53,12 @@ file_evo = open('simulation_results_from_galaxy_evol/example/chemical_and_SN_evo
 
 ### Step 4
 
+Specify the following lines in "stellar_luminosity.py"
+```
+isochrones_selection = "PARSEC"
+band_selection = "V"  # can be "V", "Ks", or "IRAC36"
+```
+
+### Step 5
+
 Run galaxy_luminosity_evolution.py
