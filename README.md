@@ -15,7 +15,7 @@ Currently, the only stellar isochrone prepared is from the PARSEC stellar evolut
 
 ## Citation
 
-Haslbauer et al. (2024 ApJ accepted)
+Haslbauer et al. (2024 A&A accepted)
 
 ## Input
 
