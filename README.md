@@ -15,7 +15,7 @@ Currently, the only stellar isochrone prepared is from the PARSEC stellar evolut
 
 ## Citation
 
-Haslbauer et al. (2024 submitted to ApJ)
+Haslbauer et al. (2024 ApJ accepted)
 
 ## Input
 
@@ -31,7 +31,7 @@ For the current luminosity table (to be updated), the minimum time resolution is
 
 ## Example
 
-This repository includes an example of galaxy simulation results and is self-sufficient to run without GalIMF.
+This repository includes an example of galaxy simulation results and is self-sufficient to run without the GalIMF code.
 
 You could test the code by directly running
 stellar_luminosity.py
