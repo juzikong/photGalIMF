@@ -2,7 +2,7 @@
 
 Authors: Moritz Haslbauer (Bonn University), Yan Zhiqiang (Nanjing University)
 
-This is kept as an independent repository that may be updated with newer stellar evolution models.
+The photGalIMF code can calculate the stellar mass and luminosity evolution of a galaxy with known information on age, mass, metallicity, and IMF of all the single stellar populations ever formed. That is, this is a post-processing code.
 
 
 ## Aim
