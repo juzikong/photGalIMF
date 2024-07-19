@@ -2,12 +2,9 @@
 
 Authors: Moritz Haslbauer (Bonn University), Yan Zhiqiang (Nanjing University)
 
-The photGalIMF code can calculate the stellar mass and luminosity evolution of a galaxy with known information on age, mass, metallicity, and IMF of all the single stellar populations ever formed. That is, this is a post-processing code.
+The photGalIMF code can calculate the stellar mass and luminosity evolution of a galaxy with known information on age, mass, metallicity, and IMF of all the single stellar populations ever formed. 
 
-
-## Aim
-
-Supplementary repository of the GalIMF galaxy chemical evolution code (https://github.com/Azeret/galIMF) to calculate (post-processing) the photometric luminosity of simulated galaxies.
+That is, this is a post-processing code. It is a supplementary repository of the GalIMF galaxy chemical evolution code (https://github.com/Azeret/galIMF) to calculate (post-processing) the photometric luminosity of simulated galaxies.
 
 ## Stellar isochrone
 
