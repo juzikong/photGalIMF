@@ -27,10 +27,41 @@ sys.path.append('simulation_results_from_galaxy_evol/example')
 file_evo = open('simulation_results_from_galaxy_evol/example/chemical_and_SN_evolution.txt', 'r')
 data = file_evo.readlines()
 file_evo.close()
-# The following line numbers may differ for simulation results given by different galIMF versions. Please double check the correct line number.
-Z__list = [float(x) for x in data[195].split()]
-simulation_time_list = [float(x) for x in data[15].split()]
-stellar_mass_formed_at_each_epoch = [float(x) for x in data[203].split()]
+
+
+
+# Initialize empty lists to hold the data
+Z__list = []
+simulation_time_list = []
+stellar_mass_formed_at_each_epoch = []
+
+# Open and read the file
+with open(file_path, 'r') as file_evo:
+    lines = file_evo.readlines()
+
+# Helper function to find line numbers based on markers
+def find_line_number(marker, lines):
+    for i, line in enumerate(lines):
+        if marker in line:
+            return i + 1  # +1 to get the line after the marker
+    return None
+
+# Find the line numbers for the required data
+Z__line = find_line_number('# Z_list:', lines)
+simulation_time_line = find_line_number('# time step list:', lines)
+stellar_mass_line = find_line_number('# formed stellar mass list:', lines)
+
+# Extract the data
+if Z__line is not None:
+    Z__list = [float(x) for x in lines[Z__line].split()]
+
+if simulation_time_line is not None:
+    simulation_time_list = [float(x) for x in lines[simulation_time_line].split()]
+
+if stellar_mass_line is not None:
+    stellar_mass_formed_at_each_epoch = [float(x) for x in lines[stellar_mass_line].split()]
+
+
 
 print("This code take the galaxy simualtion result saved in simulation_results_from_galaxy_evol/example and calculates the galaxy luminosity and mass evolution.")
 print("This example galaxy form stars continuously for 1 Gyr at each 10 Myr timestep with a SFR = 100 Msun/yr.")
