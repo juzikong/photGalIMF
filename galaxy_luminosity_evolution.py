@@ -48,11 +48,15 @@ def find_line_number(marker, lines):
     return None
 
 # Find the line numbers for the required data
+SFEN__line = find_line_number('# Number of star formation event epoch (10^7 yr):', lines)
 Z__line = find_line_number('# Z_list:', lines)
 simulation_time_line = find_line_number('# time step list:', lines)
 stellar_mass_line = find_line_number('# formed stellar mass list:', lines)
 
 # Extract the data
+SFEN = int(lines[SFEN__line])
+epoch_number_list = createList(1, SFEN)
+
 if Z__line is not None:
     Z__list = [float(x) for x in lines[Z__line].split()]
 
@@ -67,7 +71,6 @@ if stellar_mass_line is not None:
 print("This code take the galaxy simualtion result saved in simulation_results_from_galaxy_evol/example and calculates the galaxy luminosity and mass evolution.")
 print("This example galaxy form stars continuously for 1 Gyr at each 10 Myr timestep with a SFR = 100 Msun/yr.")
 print("That is, in total 100 star formation epoch.")
-epoch_number_list = createList(1, 99)
 print("The simulation record the galaxy metallicity Z__list at simulation_time_list with a length of {}.".format(len(Z__list)))
 print("simulation_time_list:", simulation_time_list)
 print("Z__list:", Z__list)
