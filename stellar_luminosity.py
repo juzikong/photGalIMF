@@ -2,7 +2,7 @@ from pylab import *
 from scipy.integrate import quad
 # The photGalIMF code provides at its current stage only the Ks-band, the IRAC [3.6]-band, and the V-band from the PARSEC isochrones
 isochrones_selection = "PARSEC"
-band_selection = "IRAC36"  # can be "V", "Ks", or "IRAC36"
+band_selection = "V"  # can be "V", "Ks", or "IRAC36"
 # Downloaded metallicity grid for PARSEC stellar luminosity
 Z_list_value = [0.0001, 0.0002, 0.0005, 0.001, 0.002, 0.004, 0.008, 0.02, 0.03, 0.04]
 # Z_list_value = [0.0001, 0.004, 0.02, 0.04]
