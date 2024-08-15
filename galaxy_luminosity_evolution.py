@@ -24,7 +24,8 @@ obs_time_list = [i * 1e7 for i in createList(1, 15)] + [2e8, 4e8, 7e8] + [i * 1e
     i * 1e9 for i in createList(3, 14)]
 
 sys.path.append('simulation_results_from_galaxy_evol/example')
-file_evo = open('simulation_results_from_galaxy_evol/example/chemical_and_SN_evolution.txt', 'r')
+file_path = 'simulation_results_from_galaxy_evol/example/chemical_and_SN_evolution.txt'
+file_evo = open(file_path, 'r')
 data = file_evo.readlines()
 file_evo.close()
 
