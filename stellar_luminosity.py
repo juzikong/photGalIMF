@@ -120,7 +120,8 @@ def SSP_luminosity(igimf_of_this_epoch, stellar_Z, stellar_age, lower_boundary, 
             mid = (low + high) // 2
             mid_value = Z_list_value[mid]
             if mid_value == stellar_Z:
-                return Z_list_value[mid]
+                lum__ = SSP_luminosity_metal(igimf_of_this_epoch, Z_list_value[mid], stellar_age, lower_boundary, upper_boundary, bin_number)
+                return lum__
             elif mid_value < stellar_Z:
                 low = mid + 1
             else:
