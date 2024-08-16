@@ -1,4 +1,4 @@
-# photGalIMF
+# photGalIMF version 1.2
 
 Authors: Moritz Haslbauer (Bonn University), Yan Zhiqiang (Nanjing University)
 
@@ -35,7 +35,7 @@ stellar_luminosity.py
 and/or
 galaxy_luminosity_evolution.py
 
-If a new galaxy simulation rather than the example is considered. Follow these steps to modify "galaxy_luminosity_evolution.py".
+When a new galaxy simulation rather than the example is considered. Follow these steps to modify "galaxy_luminosity_evolution.py".
 
 ### Step 1
 
@@ -45,8 +45,6 @@ Else: The code adopts variable gwIMF for each timestep defined in simulation_res
 
 ### Step 2
 
-Specify the "epoch_number_list", which is a list of timesteps (real-time / 10 Myr) that have star formation activities. 
-The corresponding total stellar mass formed and their mean stellar metallicity for each timestep is provided in simulation_results_from_galaxy_evol/chemical_and_SN_evolution.txt (see Inputs above).
 For variable gwIMF (see Step 1) the gwIMF for each timestep is required in simulation_results_from_galaxy_evol (see Inputs above).
 
 ### Step 3
@@ -68,3 +66,10 @@ band_selection = "V"  # can be "V", "Ks", or "IRAC36"
 ### Step 5
 
 Run galaxy_luminosity_evolution.py
+
+## Updates
+
+14.8.2024: Line index finders are implemented to automatically prepare Z__list, simulation_time_list, stellar_mass_formed_at_each_epoch, epoch_number_list.
+
+16.8.2024: function SSP_luminosity in stellar_luminosity.py is corrected because wrong/zero luminosity was returned when the stellar metallicity is exactly a value in the Z_list_value list. This does not affect calculations for galaxies with natural self-enrichment because the metallicities given by a GCE model are extremely unlikely to be exactly a number in the Z_list_value list.
+
