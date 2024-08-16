@@ -69,7 +69,7 @@ Run galaxy_luminosity_evolution.py
 
 ## Updates
 
-14.8.2024: Line index finders are implemented to automatically prepare Z__list, simulation_time_list, stellar_mass_formed_at_each_epoch, epoch_number_list.
+14.8.2024: Line index finders are implemented in galaxy_luminosity_evolution.py to automatically prepare Z__list, simulation_time_list, stellar_mass_formed_at_each_epoch, epoch_number_list.
 
 16.8.2024: function SSP_luminosity in stellar_luminosity.py is corrected because wrong/zero luminosity was returned when the stellar metallicity is exactly a value in the Z_list_value list. This does not affect calculations for galaxies with natural self-enrichment because the metallicities given by a GCE model are extremely unlikely to be exactly a number in the Z_list_value list.
 
