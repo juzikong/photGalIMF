@@ -12,7 +12,27 @@ Currently, the only stellar isochrone prepared is from the PARSEC stellar evolut
 
 ## Citation
 
-Haslbauer et al. (2024 A&A accepted)
+[Haslbauer et al. (2024 Astronomy & Astrophysics, Volume 689, id.A221, 18 pp.)](https://ui.adsabs.harvard.edu/abs/2024A%26A...689A.221H/abstract)
+
+@ARTICLE{2024A&A...689A.221H,
+       author = {{Haslbauer}, Moritz and {Yan}, Zhiqiang and {Jerabkova}, Tereza and {Gjergo}, Eda and {Kroupa}, Pavel and {Zonoozi}, Akram Hasani},
+        title = "{The effect of the environment-dependent stellar initial mass function on the photometric properties of star-forming galaxies}",
+      journal = {\aap},
+     keywords = {galaxies: evolution, galaxies: formation, galaxies: fundamental parameters, galaxies: luminosity function, mass function, galaxies: photometry, galaxies: star formation, Astrophysics - Astrophysics of Galaxies, Astrophysics - Solar and Stellar Astrophysics},
+         year = 2024,
+        month = sep,
+       volume = {689},
+          eid = {A221},
+        pages = {A221},
+          doi = {10.1051/0004-6361/202347928},
+archivePrefix = {arXiv},
+       eprint = {2405.05313},
+ primaryClass = {astro-ph.GA},
+       adsurl = {https://ui.adsabs.harvard.edu/abs/2024A&A...689A.221H},
+      adsnote = {Provided by the SAO/NASA Astrophysics Data System}
+}
+
+
 
 ## Input
 
