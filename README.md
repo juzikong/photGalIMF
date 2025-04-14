@@ -4,11 +4,11 @@ Authors: Moritz Haslbauer (Bonn University), Yan Zhiqiang (Nanjing University)
 
 The photGalIMF code can calculate the stellar mass and luminosity evolution of a galaxy with known information on age, mass, metallicity, and IMF of all the single stellar populations ever formed. 
 
-That is, this is a post-processing code. It is a supplementary repository of the GalIMF galaxy chemical evolution code (https://github.com/Azeret/galIMF) to calculate (post-processing) the photometric luminosity of simulated galaxies.
+That is, this is a post-processing code. It is a supplementary repository of the [GalIMF](https://github.com/Azeret/galIMF) galaxy chemical evolution code to calculate (post-processing) the photometric luminosity of simulated galaxies.
 
 ## Stellar isochrone
 
-Currently, the only stellar isochrone prepared is from the PARSEC stellar evolution model downloaded from http://stev.oapd.inaf.it/cgi-bin/cmd with settings detailed in the publication below.
+Currently, the only stellar isochrone prepared is from the [PARSEC](http://stev.oapd.inaf.it/cgi-bin/cmd) stellar evolution model with settings detailed in the publication below.
 
 ## Citation
 
@@ -16,7 +16,7 @@ Currently, the only stellar isochrone prepared is from the PARSEC stellar evolut
 
 ## Input
 
-The photGalIMF code takes the galaxy chemical evolution simulation results saved in (https://github.com/Azeret/galIMF/tree/master/simulation_results_from_galaxy_evol) and the galaxy-wide IMFs saved in (https://github.com/Azeret/galIMF/tree/master/Generated_IGIMFs) as inputs.
+The photGalIMF code takes the galaxy chemical evolution simulation results saved in the file [simulation_results_from_galaxy_evol](https://github.com/Azeret/galIMF/tree/master/simulation_results_from_galaxy_evol) and the galaxy-wide IMFs saved in the file [Generated_IGIMFs](https://github.com/Azeret/galIMF/tree/master/Generated_IGIMFs) as inputs.
 
 ## Output
 
